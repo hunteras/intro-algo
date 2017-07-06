@@ -78,3 +78,28 @@
   (unless (null lst)
     (multiple-value-bind (left middle right) (partition lst)
       (append (quick-sort left) middle (quick-sort right)))))
+
+
+;;
+(defun count-leafs (tree)
+  (cond ((null tree) 0)
+        ((not (listp tree)) 1)
+        (t (+
+            (count-leafs (car tree))
+            (count-leafs (cdr tree))))))
+
+;;
+(defun is-prime (n l)
+  (cond ((null l) t)
+        ((= (rem n (car l)) 0) nil)
+        (t (is-prime n (cdr l)))))
+
+(defun prime-iter (n stop l)
+  (cond ((> n stop) l)
+        ((is-prime n l);;(remove-if #'(lambda (x) (> x (sqrt n))) l))
+         (prime-iter (+ 1 n) stop (append1 l n)))
+        (t (prime-iter (+ 1 n) stop l))))
+  
+(defun primes (n)
+  "get prime numbers below n."
+  (prime-iter 3 n '(2)))
