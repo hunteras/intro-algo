@@ -91,6 +91,7 @@
 ;;
 (defun is-prime (n l)
   (cond ((null l) t)
+        ;;((> (sqrt (car l)) n) nil)
         ((= (rem n (car l)) 0) nil)
         (t (is-prime n (cdr l)))))
 
